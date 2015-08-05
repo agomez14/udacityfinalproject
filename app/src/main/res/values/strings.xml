@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Pantry</string>
+    <string name="title_activity_recipe_list">RecipeList</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="recipe_list_title">Recipe List</string>
 </resources>

@@ -1,0 +1,5 @@
+/*!CK:1843516889!*//*1433746390,*/
+
+if (self.CavalryLogger) { CavalryLogger.start_js(["7zBzp"]); }
+
+__d("P2PSendMoneySuccessDialog.react",["Link.react","React","P2PLinkConstants","P2PSuccessDialog.react","P2PText.react","fbt"],function(a,b,c,d,e,f,g,h,i,j,k,l){b.__markCompiled&&b.__markCompiled();'use strict';var m=h,n=m.PropTypes,o=h.createClass({displayName:"P2PSendMoneySuccessDialog",propTypes:{onClose:n.func.isRequired},render:function(){return (h.createElement(j,{onOKClick:this.props.onClose,title:l._("Payment Sent")},h.createElement(k,{type:"primary"},l._("When you receive money, it will go on this card too. You can update your card in {Link with text that goes to settings page}.",[l.param("Link with text that goes to settings page",h.createElement(g,{target:"_blank",href:i.settingsWWWURI},l._("Payments Settings")))]))));}});e.exports=o;},null);

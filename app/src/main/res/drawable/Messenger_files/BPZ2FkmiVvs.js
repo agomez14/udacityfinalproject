@@ -1,0 +1,5 @@
+/*!CK:1750198015!*//*1438197740,*/
+
+if (self.CavalryLogger) { CavalryLogger.start_js(["bc89Y"]); }
+
+__d("VideoPlaybackTimer.react",["React","ReactComponentWithPureRenderMixin","cx"],function(a,b,c,d,e,f,g,h,i){b.__markCompiled&&b.__markCompiled();var j=g,k=j.PropTypes,l=g.createClass({displayName:"PlaybackTimer",mixins:[h],propTypes:{playbackPosition:k.number,playbackDuration:k.number},getClock:function(m){var n=Math.floor(m/3600),o=m-n*3600,p=Math.floor(o/60),q=Math.floor(o-p*60),r=('0'+p).slice(-2),s=('0'+q).slice(-2);if(n===0){return (g.createElement("span",{className:"_5qsq"},p,":",s));}else return (g.createElement("span",{className:"_5qsq"},n,":",r,":",s));},getPosition:function(){return this.getClock(this.props.playbackPosition);},getDuration:function(){return this.getClock(this.props.playbackDuration);},render:function(){return (g.createElement("div",{className:"_5qsr"},this.getPosition(),"/",this.getDuration()));}});e.exports=l;},null);

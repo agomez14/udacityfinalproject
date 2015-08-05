@@ -1,0 +1,5 @@
+/*!CK:2875055319!*//*1432691263,*/
+
+if (self.CavalryLogger) { CavalryLogger.start_js(["hivrN"]); }
+
+__d("HighContrastMode",["AccessibilityLogger","CSS","CurrentUser","DOM","Style","URI","emptyFunction"],function(a,b,c,d,e,f,g,h,i,j,k,l,m){b.__markCompiled&&b.__markCompiled();var n={init:function(o){var p=new l(window.location.href);if(p.getPath().indexOf('/intern/')===0)return;if(window.top!==window.self)return;var q=j.create('div');j.appendContent(document.body,q);q.style.cssText='border: 1px solid !important;'+'border-color: red green !important;'+'position: fixed;'+'height: 5px;'+'top: -999px;'+'background-image: url('+o.spacerImage+') !important;';var r=k.get(q,'background-image'),s=k.get(q,'border-top-color'),t=k.get(q,'border-right-color'),u=s==t&&(r&&(r=='none'||r=='url(invalid-url:)'));if(u){h.conditionClass(document.documentElement,'highContrast',u);if(i.getID())g.logHCM();}j.remove(q);n.init=m;}};e.exports=n;},null);

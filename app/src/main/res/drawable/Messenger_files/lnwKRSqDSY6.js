@@ -1,5 +1,0 @@
-/*!CK:691202547!*//*1435560244,*/
-
-if (self.CavalryLogger) { CavalryLogger.start_js(["prnHq"]); }
-
-__d("MessagingForwardingButtonNUX.react",["AsyncRequest","ChatConfig","React","XForwardingNUXSeenController","XUIAmbientNUX.react"],function(a,b,c,d,e,f,g,h,i,j,k){b.__markCompiled&&b.__markCompiled();var l=i,m=l.PropTypes,n=i.createClass({displayName:"MessagingForwardingButtonNUX",propTypes:{contextRef:m.func.isRequired},getInitialState:function(){return {showNUX:!h.get('seen_forwarding_nux')&&h.get('forwarding_nux_gating')};},_onClose:function(){h.set('seen_forwarding_nux',true);new g(j.getURIBuilder().getURI()).send();this.setState({showNUX:false});},render:function(){return (i.createElement(k,{contextRef:this.props.contextRef,onCloseButtonClick:this._onClose,position:"above",shown:this.state.showNUX},this.props.children));}});e.exports=n;},null);

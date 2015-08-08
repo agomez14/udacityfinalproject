@@ -1,5 +1,0 @@
-/*!CK:3170711013!*//*1438197740,*/
-
-if (self.CavalryLogger) { CavalryLogger.start_js(["tq0k3"]); }
-
-__d("VideoFrameBuffer",["DOMDimensions"],function(a,b,c,d,e,f,g){b.__markCompiled&&b.__markCompiled();function h(i,j,k){"use strict";this.$VideoFrameBuffer0=j;this.$VideoFrameBuffer1=i;this.$VideoFrameBuffer2=k||'contain';}h.prototype.updateFrameBuffer=function(){"use strict";var i=this.$VideoFrameBuffer1.clientWidth||this.$VideoFrameBuffer1.width,j=this.$VideoFrameBuffer1.clientHeight||this.$VideoFrameBuffer1.height,k=i,l=j,m=this.$VideoFrameBuffer0.videoWidth/this.$VideoFrameBuffer0.videoHeight,n=k/l;if(this.$VideoFrameBuffer2==='cover'){n*=-1;m*=-1;}if(n>m){k=l*m;}else if(n<m)l=k/m;var o=this.$VideoFrameBuffer1.getContext('2d');if(!(o instanceof window.CanvasRenderingContext2D))return;o.drawImage(this.$VideoFrameBuffer0,(i-k)/2,(j-l)/2,k,l);};h.prototype.getDOMNode=function(){"use strict";return this.$VideoFrameBuffer1;};h.prototype.updateDimensions=function(){"use strict";var i=g.getElementDimensions(this.$VideoFrameBuffer0);this.$VideoFrameBuffer1.width=i.width;this.$VideoFrameBuffer1.height=i.height;};e.exports=h;},null);

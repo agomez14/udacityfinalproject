@@ -1,5 +1,0 @@
-/*!CK:3548094060!*//*1438197740,*/
-
-if (self.CavalryLogger) { CavalryLogger.start_js(["ILYMW"]); }
-
-__d("VideoChannelViewChainLengthManager",["guid"],function(a,b,c,d,e,f,g){b.__markCompiled&&b.__markCompiled();var h={generateNewSessionID:function(){this._currentSessionID=g();},getLoggingData:function(){return {video_chaining_depth_level:this.getCurrentChainLength(),video_chaining_session_id:this.getCurrentSessionID()};},registerChainingInfos:function(i,j){var k=i;if(j){var l=j.decode();k=l.root_id;}if(k)k=k.toString();this.registerVideoID(k,i);},registerVideoID:function(i,j){var k=0;if(i!==j)k=1;if(!this._currentRootVideoID||this._currentRootVideoID!==i){this.generateNewSessionID();this._currentRootVideoID=i;this._chainLength=k;}else if(this._currentVideoID!==j)this.incrementChainLength();this._currentVideoID=j;},incrementChainLength:function(){this._chainLength=this._chainLength+1;},getCurrentSessionID:function(){return this._currentSessionID;},getCurrentChainLength:function(){if(this._chainLength===(void 0)){return null;}else return this._chainLength;}};e.exports=h;},null);

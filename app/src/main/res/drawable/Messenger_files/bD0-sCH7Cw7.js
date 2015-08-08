@@ -1,5 +1,0 @@
-/*!CK:2485456270!*//*1438197740,*/
-
-if (self.CavalryLogger) { CavalryLogger.start_js(["yOUuJ"]); }
-
-__d("AbstractVideoFullscreenControl.react",["AbstractButton.react","React","ReactComponentWithPureRenderMixin"],function(a,b,c,d,e,f,g,h,i){b.__markCompiled&&b.__markCompiled();'use strict';var j=h,k=j.PropTypes,l=h.createClass({displayName:"AbstractVideoFullscreenControl",mixins:[i],propTypes:{image:k.element,isFullscreen:k.bool,onToggleFullscreen:k.func},getInitialState:function(){return {awaitingUpdate:false};},isFullscreen:function(){if(this.state.awaitingUpdate)return this.state.isFullscreenOverride;return !!this.props.isFullscreen;},onButtonClick:function(){this.props.onToggleFullscreen&&this.props.onToggleFullscreen();},render:function(){return (h.createElement(g,h.__spread({},this.props,{className:this.props.className,image:this.props.image,onClick:this.onButtonClick})));}});e.exports=l;},null);

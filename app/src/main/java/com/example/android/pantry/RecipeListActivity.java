@@ -1,11 +1,17 @@
 package com.example.android.pantry;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.Window;
+
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +24,12 @@ public class RecipeListActivity extends AppCompatActivity implements ActionBar.T
     private String[] tabs = { "Breakfast", "Lunch", "Dinner" };
     private List<Recipe> mRecipes = new ArrayList<>();
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_recipe_list, menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,5 +124,19 @@ public class RecipeListActivity extends AppCompatActivity implements ActionBar.T
             }
         }
         return recipes;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                ParseUser.logOut();
+                Intent intent = new Intent(RecipeListActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

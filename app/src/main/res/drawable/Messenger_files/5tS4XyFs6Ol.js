@@ -1,5 +1,0 @@
-/*!CK:280835124!*//*1433746390,*/
-
-if (self.CavalryLogger) { CavalryLogger.start_js(["tvlwA"]); }
-
-__d("P2PUnderManualReviewDialog.react",["P2PButton.react","P2PDialog.react","P2PDialogBody.react","P2PDialogFooter.react","P2PDialogTitle.react","P2PText.react","React","fbt"],function(a,b,c,d,e,f,g,h,i,j,k,l,m,n){b.__markCompiled&&b.__markCompiled();'use strict';var o=m,p=o.PropTypes,q=m.createClass({displayName:"P2PUnderManualReviewDialog",propTypes:{onClose:p.func.isRequired},render:function(){return (m.createElement(h,{layerHideOnBlur:false,shown:true,width:300},m.createElement(k,{showCloseButton:false},n._("Reviewing Payment Info")),m.createElement(i,null,m.createElement(l,{type:"primary"},n._("For your security, this payment is in review for up to 24 hours. When it's confirmed, it will go through."))),m.createElement(j,null,m.createElement(g,{label:n._("OK"),onClick:this.props.onClose,use:"confirm"}))));}});e.exports=q;},null);

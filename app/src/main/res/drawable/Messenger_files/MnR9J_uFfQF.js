@@ -1,5 +1,0 @@
-/*!CK:116895282!*//*1438197740,*/
-
-if (self.CavalryLogger) { CavalryLogger.start_js(["bLXho"]); }
-
-__d("AbstractVideoPlayerApi",["EventEmitter","VideoPlayerApiEvents","arrayContains","invariant"],function(a,b,c,d,e,f,g,h,i,j){b.__markCompiled&&b.__markCompiled();for(var k in g)if(g.hasOwnProperty(k))m[k]=g[k];var l=g===null?null:g.prototype;m.prototype=Object.create(l);m.prototype.constructor=m;m.__superConstructor__=g;function m(){"use strict";g.call(this);}m.prototype.addListener=function(){"use strict";for(var n=[],o=0,p=arguments.length;o<p;o++)n.push(arguments[o]);return l.addListener.apply(this,n);};m.prototype.emit=function(){"use strict";for(var n=[],o=0,p=arguments.length;o<p;o++)n.push(arguments[o]);return l.emit.apply(this,n);};m.prototype.setSphericalViewport=function(n,o){"use strict";};m.isImplementationUnavailable=function(){"use strict";return true;};e.exports=m;},null);

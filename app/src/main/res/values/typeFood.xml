@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mainTypes">
+        <item>Meat</item>
+        <item>Vegetables</item>
+        <item>Fruits</item>
+        <item>Grain</item>
+        <item>Sweets</item>
+        <item>Dairy</item>
+    </string-array>
+
+</resources>

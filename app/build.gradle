@@ -27,4 +27,5 @@ dependencies {
     compile 'com.parse.bolts:bolts-android:1.+'
     compile files("$rootProject.projectDir/libs/Parse-1.9.4.jar");
     compile files("$rootProject.projectDir/libs/ParseFacebookUtilsV4-1.9.1.jar");
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

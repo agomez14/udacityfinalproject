@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string-array name="image_id">
+       <item>@drawable/rawchicken</item>
+       <item>@drawable/pork</item>
+       <item>@drawable/beefimage</item>
+       <item>@drawable/rawturkey</item>
+       <item>@drawable/fish</item>
+   </string-array>
+</resources>

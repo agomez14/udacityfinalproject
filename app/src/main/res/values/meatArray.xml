@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="meatTypes">
+        <item>Type of Meat</item>
+        <item>Chicken</item>
+        <item>Pork</item>
+        <item>Beef</item>
+        <item>Turkey</item>
+        <item>Fish</item>
+    </string-array>
+</resources>

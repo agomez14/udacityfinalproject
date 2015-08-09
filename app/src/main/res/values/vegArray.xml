@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="vegetables">
+        <item>Corn</item>
+        <item>String bean</item>
+        <item>Lettuce</item>
+        <item>Cucumbers</item>
+        <item>Pickles</item>
+        <item>Spinach</item>
+    </string-array>
+</resources>

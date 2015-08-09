@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.barryjohnsonsmith.p.addItemActivity"
+    android:weightSum="1">
+
+    <Spinner
+        android:layout_width="247dp"
+        android:layout_height="115dp"
+        android:id="@+id/subgenres"
+        android:layout_gravity="center_vertical"
+        android:layout_below="@+id/types"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/types"
+        android:layout_alignEnd="@+id/types" />
+
+    <Spinner
+        android:id="@+id/types"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/qunatity"
+        android:hint="Type in the quantity amount."
+        android:layout_below="@+id/subgenres"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:id="@+id/done"
+        android:onClick="sendFoodToList"
+        android:layout_below="@+id/subgenres"
+        android:layout_toRightOf="@+id/qunatity"
+        android:layout_alignBottom="@+id/qunatity" />
+
+</RelativeLayout>

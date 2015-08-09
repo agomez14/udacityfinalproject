@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sweets">
+        <item>Cupcake</item>
+        <item>Cake</item>
+        <item>Cookies</item>
+        <item>Candy</item>
+    </string-array>
+</resources>

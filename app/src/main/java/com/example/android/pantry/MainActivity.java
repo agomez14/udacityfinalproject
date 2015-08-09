@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.parse.ParseAnonymousUtils;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
@@ -30,16 +29,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        gridView = (GridView) findViewById(R.id.listFoods);
-        if (savedInstanceState != null) {
-            pictures = savedInstanceState.getParcelableArrayList("pictures");
-        } else {
-            pictures = getData();
-        }
-        gridAdapter = new GridViewAdapter(this, R.layout.grid_item, pictures);
-        gridView.setAdapter(gridAdapter);
-        gridView.setOnItemClickListener(this);
         // Determine whether the current user is an anonymous user
 //        if (ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser())) {
 //            // If user is anonymous, send the user to LoginSignupActivity.class
@@ -63,6 +52,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 startActivity(intent);
                 finish();
             }
+        gridView = (GridView) findViewById(R.id.listFoods);
+        if (savedInstanceState != null) {
+            pictures = savedInstanceState.getParcelableArrayList("pictures");
+        } else {
+            pictures = getData();
+        }
+        setContentView(R.layout.activity_main);
+        gridAdapter = new GridViewAdapter(this, R.layout.grid_item, pictures);
+        gridView.setAdapter(gridAdapter);
+        gridView.setOnItemClickListener(this);
 //        }
     }
     public void onItemClick (AdapterView< ? > parent, View v,int position, long id){

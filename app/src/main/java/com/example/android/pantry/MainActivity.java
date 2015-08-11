@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         }
         else {
-            Intent intent = new Intent(this, DetailsActivity.class);
+            Intent intent = new Intent(this, DetailsFragment.class);
             ImageItem item = (ImageItem) parent.getItemAtPosition(position);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             Bitmap bmp = item.getImage();

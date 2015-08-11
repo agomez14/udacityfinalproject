@@ -1,5 +1,6 @@
 package com.example.android.pantry;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -7,12 +8,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.parse.ParseUser;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +57,7 @@ public class RecipeListActivity extends AppCompatActivity {//implements ActionBa
         mRecyclerView.setAdapter(mAdapter);
 
         ingredients = getIntent().getStringArrayListExtra("ingred");
-        SearchRecipesTask recipesTask = new SearchRecipesTask(mAdapter, mRecipes);
+        SearchRecipesTask recipesTask = new SearchRecipesTask(mAdapter);
         recipesTask.execute(ingredients);
 //        for (int i = 0; i < 10; i++) {
 //            mRecipes.add(new Recipe("Vegetable-Pasta Oven Omelet", "tomato, onions, red pepper, garlic, olive oil, zucchini, cream cheese, vermicelli, eggs, parmesan cheese, milk, italian seasoning, salt, black pepper","http://www.bigoven.com/43919-Roasted-Pepper-and-Bacon-Omelet-recipe.html", 3,"http://i.imgur.com/DvpvklR.png"));
@@ -158,5 +167,69 @@ public class RecipeListActivity extends AppCompatActivity {//implements ActionBa
 
     public List<String> getIngredients() {
         return ingredients;
+    }
+
+    public class RecipeHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
+
+        private ImageView mImageView;
+        private TextView mNameTextView;
+
+        public RecipeHolder(View itemView) {
+            super(itemView);
+            itemView.setOnClickListener(this);
+
+            mImageView = (ImageView) itemView.findViewById(
+                    R.id.imageView);
+            mNameTextView = (TextView) itemView.findViewById(
+                    R.id.textView);
+        }
+
+        public void bindRecipe(Recipe recipe, Context context) {
+            Log.d("RecipeHolder", "Started bind");
+            Picasso.with(context).load(recipe.getPicture()).fit().into(mImageView);
+            Log.d("RecipeHolder", "Bound picture");
+            mNameTextView.setText(recipe.getName());
+            Log.d("RecipeHolder", "Bound name");
+        }
+
+        @Override
+        public void onClick(View v) {
+        }
+    }
+
+    public class RecipeAdapter extends RecyclerView.Adapter<com.example.android.pantry.RecipeListActivity.RecipeHolder> {
+        private Context mContext;
+        private List<Recipe> mRecipes;
+        private LayoutInflater mInflater;
+
+        public RecipeAdapter(Context context, List<Recipe> recipes, LayoutInflater inflater) {
+            mContext = context;
+            mRecipes = recipes;
+            mInflater = inflater;
+        }
+
+        public void setRecipes(List<Recipe> recipes) {
+            mRecipes = recipes;
+        }
+
+        @Override
+        public RecipeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            Log.d("RecipeAdapter", "Creating view holder");
+            View view = mInflater.inflate(R.layout.recipe_listview_fragment, parent, false);
+            return new RecipeHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(RecipeHolder holder, int position) {
+            Log.d("RecipeAdapter", "Calling bind");
+            holder.bindRecipe(mRecipes.get(position), mContext);
+            Log.d("RecipeAdapter", "After bind");
+        }
+
+        @Override
+        public int getItemCount() {
+            return mRecipes.size();
+        }
     }
 }

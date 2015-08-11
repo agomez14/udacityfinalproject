@@ -18,20 +18,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.android.pantry.RecipeListActivity.*;
+
 /**
  * Created by barryjohnsonsmith on 8/8/15.
  */
-public class SearchRecipesTask  extends AsyncTask<ArrayList<String> ,Void, ArrayList<Recipe>> {
+public class SearchRecipesTask extends AsyncTask<ArrayList<String>, Void, ArrayList<Recipe>> {
 
     private final String LOG_TAG = SearchFoodTask.class.getSimpleName();
-    private List<Recipe> mRecipeList = new ArrayList<>();
     private RecipeAdapter mAdapter;
     //private final Context mContext;
 
-    public SearchRecipesTask(RecipeAdapter adapter, List<Recipe> recipeList) {
+    public SearchRecipesTask(RecipeAdapter adapter) {
         //mContext = context;
-        mRecipeList = recipeList;
-        mRecipeList = new ArrayList<>();
         mAdapter = adapter;
     }
 
@@ -46,12 +45,9 @@ public class SearchRecipesTask  extends AsyncTask<ArrayList<String> ,Void, Array
         ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
         JSONObject recipeJson = new JSONObject(recipeSearchJsonStr);
         JSONArray searchList = recipeJson.getJSONArray(RESULTS_LIST);
-        int i = 0;
-        //for (int i = 0; i < searchList.length(); i++) {
-        JSONObject j = searchList.getJSONObject(i);
-        Log.d("RecipeTask", "Before while");
-        while(i<2&&j!=null){
-            j = searchList.getJSONObject(i);
+        for (int i = 0; i < searchList.length(); i++) {
+            JSONObject j = searchList.getJSONObject(i);
+            Log.d("RecipeTask", "Before while");
             String title = j.getString(TITLE);
             String ingredients = j.getString(INDGREDIENTS);
             String thumbNail = j.getString(THUMB_N);
@@ -61,7 +57,8 @@ public class SearchRecipesTask  extends AsyncTask<ArrayList<String> ,Void, Array
         }
         return recipeList;
     }
-    protected ArrayList<Recipe> doInBackground(ArrayList<String> ... params) {
+
+    protected ArrayList<Recipe> doInBackground(ArrayList<String>... params) {
         HttpURLConnection urlConnection = null;
         ArrayList<Recipe> results = new ArrayList<Recipe>();
         BufferedReader reader = null;
@@ -76,10 +73,10 @@ public class SearchRecipesTask  extends AsyncTask<ArrayList<String> ,Void, Array
             final String INGREDIENTS = "i";
             final String PAGES = "p";
             String recipes = "";
-            for(String s:ingreds){
-                recipes = recipes +","+ s;
+            for (String s : ingreds) {
+                recipes = recipes + "," + s;
             }
-            recipes = recipes.substring(1,recipes.length());
+            recipes = recipes.substring(1, recipes.length());
             Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                     .appendQueryParameter(INGREDIENTS, recipes)
                             //.appendQueryParameter(QUERY, params[3])
@@ -111,9 +108,7 @@ public class SearchRecipesTask  extends AsyncTask<ArrayList<String> ,Void, Array
         {
             Log.e(LOG_TAG, "Error ", e);
             return null;
-        }
-        finally
-        {
+        } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
             }
@@ -126,21 +121,21 @@ public class SearchRecipesTask  extends AsyncTask<ArrayList<String> ,Void, Array
             }
         }
         try {
-            results = (getFoodDataFromJson(recipeSearchJsonStr,1));
-            return results ;
-        }
-        catch (JSONException e) {
+            results = (getFoodDataFromJson(recipeSearchJsonStr, 1));
+            return results;
+        } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
         }
         return null;
     }
+
     @Override
     protected void onPostExecute(ArrayList<Recipe> result) {
         Log.d("recipeList", "Got to onPostExecute");
         Log.d("recipeList", result.toString());
         if (result != null) {
-            mRecipeList = result;
+            mAdapter.setRecipes(result);
             mAdapter.notifyDataSetChanged();
         }
     }

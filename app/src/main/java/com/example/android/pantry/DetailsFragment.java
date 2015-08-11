@@ -10,10 +10,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.parse.ParseUser;
 
-
-public class DetailsActivity extends ActionBarActivity {
+public class DetailsFragment extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

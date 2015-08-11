@@ -16,19 +16,20 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by barryjohnsonsmith on 8/8/15.
  */
-public class SearchRecipesTask extends AsyncTask<String ,Void, ArrayList<Recipe>> {
+public class SearchRecipesTask  extends AsyncTask<ArrayList<String> ,Void, ArrayList<Recipe>> {
 
     private final String LOG_TAG = SearchFoodTask.class.getSimpleName();
-    private GridViewAdapter gridAdapter;
+    private List<Recipe> recipeList;
     private final Context mContext;
 
-    public SearchRecipesTask(Context context, GridViewAdapter gridAdapter) {
+    public SearchRecipesTask(Context context, List<Recipe> recipeList) {
         mContext = context;
-        this.gridAdapter = gridAdapter;
+        this.recipeList = recipeList;
     }
 
     private ArrayList<Recipe> getFoodDataFromJson(String recipeSearchJsonStr, int meal)
@@ -42,23 +43,26 @@ public class SearchRecipesTask extends AsyncTask<String ,Void, ArrayList<Recipe>
         ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
         JSONObject recipeJson = new JSONObject(recipeSearchJsonStr);
         JSONArray searchList = recipeJson.getJSONArray(RESULTS_LIST);
-        for (int i = 0; i < searchList.length(); i++) {
-            JSONObject j = searchList.getJSONObject(i);
+        int i = 0;
+        //for (int i = 0; i < searchList.length(); i++) {
+        JSONObject j = searchList.getJSONObject(i);
+        while(i<1&&j!=null){
+            j = searchList.getJSONObject(i);
             String title = j.getString(TITLE);
             String ingredients = j.getString(INDGREDIENTS);
             String thumbNail = j.getString(THUMB_N);
             String recipe = j.getString(RECIPE);
             recipeList.add(new Recipe(title, ingredients, recipe, meal, thumbNail));
+            i++;
         }
         return recipeList;
     }
-    protected ArrayList<Recipe> doInBackground(String... params) {
+    protected ArrayList<Recipe> doInBackground(ArrayList<String> ... params) {
         HttpURLConnection urlConnection = null;
         ArrayList<Recipe> results = new ArrayList<Recipe>();
         BufferedReader reader = null;
         String recipeSearchJsonStr = null;
-        String format = "json";
-        String key ="OduqoSRTfVbJenKSXdOTyWl6OlMbRz7jxWW6vbQg";
+        ArrayList<String> ingreds = params[0];
         if (params.length == 0) {
             return null;
         }
@@ -67,11 +71,15 @@ public class SearchRecipesTask extends AsyncTask<String ,Void, ArrayList<Recipe>
             final String QUERY = "q";
             final String INGREDIENTS = "i";
             final String PAGES = "p";
+            String recipes = "";
+            for(String s:ingreds){
+                recipes = recipes +","+ s;
+            }
+            recipes = recipes.substring(1,recipes.length());
             Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                    .appendQueryParameter(INGREDIENTS,params[0])
-                    //.appendQueryParameter(QUERY, params[3])
-                    //.appendQueryParameter(FG_PARAM,params[1])
-                    .appendQueryParameter(PAGES,params[2])
+                    .appendQueryParameter(INGREDIENTS, recipes)
+                            //.appendQueryParameter(QUERY, params[3])
+                    .appendQueryParameter(PAGES, "1")
                     .build();
             URL url = new URL(builtUri.toString());
             Log.v(LOG_TAG, "Built URI " + builtUri.toString());
@@ -114,7 +122,7 @@ public class SearchRecipesTask extends AsyncTask<String ,Void, ArrayList<Recipe>
             }
         }
         try {
-            results=(getFoodDataFromJson(recipeSearchJsonStr, Integer.parseInt(params[1])));
+            results=(getFoodDataFromJson(recipeSearchJsonStr,1));
             return results ;
         }
         catch (JSONException e) {
@@ -126,9 +134,10 @@ public class SearchRecipesTask extends AsyncTask<String ,Void, ArrayList<Recipe>
     @Override
     protected void onPostExecute(ArrayList<Recipe> result) {
         if (result != null) {
-            FetchFoodTask fetchFood = new FetchFoodTask(mContext,gridAdapter);
+            recipeList = result;
         }
     }
 }
+
 
 

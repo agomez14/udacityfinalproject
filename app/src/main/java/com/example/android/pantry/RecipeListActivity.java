@@ -38,10 +38,13 @@ public class RecipeListActivity extends AppCompatActivity implements ActionBar.T
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
 
-        for (int i = 0; i < 25; i++) {
-            mRecipes.add(new Recipe("Food and stuff", "Ingredients and shit till it's good.", 3));
-            mRecipes.add(new Recipe("Lunch and shit", "Ingredients and shit till it's good.", 2));
-            mRecipes.add(new Recipe("Bacon and Eggs", "Ingredients and shit till it's good.", 1));
+        ArrayList<String> ingredients = getIntent().getStringArrayListExtra("ingred");
+        //SearchRecipesTask recipesTask = new SearchRecipesTask(this,mRecipes);
+        //recipesTask.execute(ingredients);
+        for (int i = 0; i < 10; i++) {
+            mRecipes.add(new Recipe("Vegetable-Pasta Oven Omelet", "tomato, onions, red pepper, garlic, olive oil, zucchini, cream cheese, vermicelli, eggs, parmesan cheese, milk, italian seasoning, salt, black pepper","http://www.bigoven.com/43919-Roasted-Pepper-and-Bacon-Omelet-recipe.html", 3,"http://i.imgur.com/DvpvklR.png"));
+            mRecipes.add(new Recipe("Vegetable-Pasta Oven Omelet", "tomato, onions, red pepper, garlic, olive oil, zucchini, cream cheese, vermicelli, eggs, parmesan cheese, milk, italian seasoning, salt, black pepper","http://www.bigoven.com/43919-Roasted-Pepper-and-Bacon-Omelet-recipe.html", 2,"http://img.recipepuppy.com/560556.jpg"));
+            mRecipes.add(new Recipe("Vegetable-Pasta Oven Omelet", "tomato, onions, red pepper, garlic, olive oil, zucchini, cream cheese, vermicelli, eggs, parmesan cheese, milk, italian seasoning, salt, black pepper","http://www.bigoven.com/43919-Roasted-Pepper-and-Bacon-Omelet-recipe.html", 1,"http://img.recipepuppy.com/560556.jpg"));
         }
 
         mTabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());

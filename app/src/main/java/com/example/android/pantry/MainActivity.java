@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -169,6 +170,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         savedInstanceState.putParcelableArrayList("pictures",pics);
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
+    }
+    public void changeColor(View v) {
+        ColorDrawable buttonDrawable =  (ColorDrawable) v.getBackground();
+        if (colorButton == 0) {
+            colorButton = buttonDrawable.getColor();
+        }
+        if(colorButton < 0) {
+            v.setBackgroundColor(getResources().getColor(R.color.blue));
+            colorButton = colorButton * -1;
+        }
+        else if(colorButton > 0) {
+            v.setBackgroundColor(getResources().getColor(R.color.aqua));
+            colorButton = colorButton * -1;
+        }
     }
     public void findRecipes(View v) {
         Intent intent = new Intent(this,RecipeListActivity.class);

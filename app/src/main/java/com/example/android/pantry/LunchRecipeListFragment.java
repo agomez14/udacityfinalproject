@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 
@@ -58,8 +60,7 @@ public class LunchRecipeListFragment extends Fragment {
         }
 
         public void bindRecipe(Recipe recipe) {
-            mImageView.setImageDrawable(getResources()
-                    .getDrawable(recipe.getPicture()));
+            Picasso.with(getActivity()).load(recipe.getPicture()).into(mImageView);
             mNameTextView.setText(recipe.getName());
         }
 

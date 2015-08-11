@@ -1,7 +1,7 @@
 package com.example.android.pantry;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 
@@ -59,8 +60,7 @@ public class BreakfastRecipeListFragment extends Fragment {
         }
 
         public void bindRecipe(Recipe recipe) {
-            mImageView.setImageDrawable(getResources()
-                    .getDrawable(recipe.getPicture()));
+            Picasso.with(getActivity()).load(recipe.getPicture()).into(mImageView);
             mNameTextView.setText(recipe.getName());
         }
 

@@ -1,20 +1,20 @@
 package com.example.android.pantry;
 
-import android.graphics.drawable.Drawable;
-
 /**
  * Created by elijahstaple on 8/3/15.
  */
 public class Recipe {
     private String Name;
-    private int Picture;
+    private String Picture;
     private String Description;
+    private String Recipe;
     private int Meal;
 
-    public Recipe(String name, String description, int meal) {
+    public Recipe(String name, String description,String recipe, int meal,String pic) {
         Name = name;
-        Picture = R.drawable.demopic;
+        Picture = pic;
         Description = description;
+        Recipe = recipe;
         Meal = meal;
     }
 
@@ -26,11 +26,11 @@ public class Recipe {
         Name = name;
     }
 
-    public int getPicture() {
+    public String getPicture() {
         return Picture;
     }
 
-    public void setPicture(int picture) {
+    public void setPicture(String picture) {
         Picture = picture;
     }
 
@@ -49,4 +49,12 @@ public class Recipe {
     public void setMeal(int meal) {
         Meal = meal;
     }
+    public String getRecipe () {
+        return Recipe;
+    }
+
+    public void setRecipe(String recipe) {
+        Recipe = recipe;
+    }
 }
+

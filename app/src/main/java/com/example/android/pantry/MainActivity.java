@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 
 import com.parse.ParseUser;
@@ -25,7 +26,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private GridView gridView;
     private GridViewAdapter gridAdapter;
     private Intent intentAddFood;
+    private int colorButton;
     private ArrayList<ImageItem> pictures;
+    private ArrayList<String> ingredients =  new ArrayList<String>();
+    private Button recipeButton;
+    private Button doneButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 finish();
             }
         gridView = (GridView) findViewById(R.id.listFoods);
+        recipeButton = (Button) findViewById(R.id.recipesButton);
+        doneButton = (Button) findViewById(R.id.done);
         if (savedInstanceState != null) {
             pictures = savedInstanceState.getParcelableArrayList("pictures");
         } else {
@@ -65,19 +72,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //        }
     }
     public void onItemClick (AdapterView< ? > parent, View v,int position, long id){
-        Intent intent = new Intent(this,DetailsActivity.class);
-        ImageItem item = (ImageItem) parent.getItemAtPosition(position);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        Bitmap bmp = item.getImage();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] bytes = stream.toByteArray();
-        intent.putExtra("image",bytes);
-        intent.putExtra("title", item.getTitle());
-        intent.putExtra("info",item.getDescription());
-        //intent.putExtra("image", item.getImage());
+        if(colorButton > 0 && colorButton!=0){
+            doneButton.setVisibility(View.VISIBLE);
+            ImageItem item = (ImageItem) parent.getItemAtPosition(position);
+            ingredients.add(item.getTitle());
 
-        //Start details activity
-        startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(this, DetailsActivity.class);
+            ImageItem item = (ImageItem) parent.getItemAtPosition(position);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            Bitmap bmp = item.getImage();
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] bytes = stream.toByteArray();
+            intent.putExtra("image", bytes);
+            intent.putExtra("title", item.getTitle());
+            intent.putExtra("info", item.getDescription());
+            //intent.putExtra("image", item.getImage());
+
+            //Start details activity
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -155,4 +170,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
     }
+    public void findRecipes(View v) {
+        Intent intent = new Intent(this,RecipeListActivity.class);
+        ArrayList<String> ingred = new ArrayList<String>();
+        for(String f :ingredients){
+            ingred.add(f);
+        }
+        intent.putExtra("ingred",ingred);
+        colorButton = colorButton * -1;
+        ingredients.clear();
+        recipeButton.setBackgroundColor(getResources().getColor(R.color.aqua));
+        doneButton.setVisibility(View.INVISIBLE);
+        startActivity(intent);
+
+    }
 }
+

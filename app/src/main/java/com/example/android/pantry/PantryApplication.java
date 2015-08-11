@@ -24,6 +24,8 @@ public class PantryApplication extends Application {
 
         Parse.enableLocalDatastore(this);
 
+        ParseObject.registerSubclass(ingredientTuple.class);
+
         Parse.initialize(this, "OgR0d02uqebhqJN8PfKofwsGZLtC6HQMk0zpSapK", "PCMJy2hyh6FKPmZBqlCi7LcKutJqmaHwtMY5OpYY");
 
         Parse.setLogLevel(Parse.LOG_LEVEL_DEBUG);

@@ -24,12 +24,15 @@ import java.util.List;
 public class SearchRecipesTask  extends AsyncTask<ArrayList<String> ,Void, ArrayList<Recipe>> {
 
     private final String LOG_TAG = SearchFoodTask.class.getSimpleName();
-    private List<Recipe> recipeList;
-    private final Context mContext;
+    private List<Recipe> mRecipeList = new ArrayList<>();
+    private RecipeAdapter mAdapter;
+    //private final Context mContext;
 
-    public SearchRecipesTask(Context context, List<Recipe> recipeList) {
-        mContext = context;
-        this.recipeList = recipeList;
+    public SearchRecipesTask(RecipeAdapter adapter, List<Recipe> recipeList) {
+        //mContext = context;
+        mRecipeList = recipeList;
+        mRecipeList = new ArrayList<>();
+        mAdapter = adapter;
     }
 
     private ArrayList<Recipe> getFoodDataFromJson(String recipeSearchJsonStr, int meal)
@@ -46,7 +49,8 @@ public class SearchRecipesTask  extends AsyncTask<ArrayList<String> ,Void, Array
         int i = 0;
         //for (int i = 0; i < searchList.length(); i++) {
         JSONObject j = searchList.getJSONObject(i);
-        while(i<1&&j!=null){
+        Log.d("RecipeTask", "Before while");
+        while(i<2&&j!=null){
             j = searchList.getJSONObject(i);
             String title = j.getString(TITLE);
             String ingredients = j.getString(INDGREDIENTS);
@@ -122,7 +126,7 @@ public class SearchRecipesTask  extends AsyncTask<ArrayList<String> ,Void, Array
             }
         }
         try {
-            results=(getFoodDataFromJson(recipeSearchJsonStr,1));
+            results = (getFoodDataFromJson(recipeSearchJsonStr,1));
             return results ;
         }
         catch (JSONException e) {
@@ -133,8 +137,11 @@ public class SearchRecipesTask  extends AsyncTask<ArrayList<String> ,Void, Array
     }
     @Override
     protected void onPostExecute(ArrayList<Recipe> result) {
+        Log.d("recipeList", "Got to onPostExecute");
+        Log.d("recipeList", result.toString());
         if (result != null) {
-            recipeList = result;
+            mRecipeList = result;
+            mAdapter.notifyDataSetChanged();
         }
     }
 }

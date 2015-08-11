@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.parse.ParseUser;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -128,6 +130,9 @@ public class SearchFoodTask extends AsyncTask<String ,Void, String[]> {
     @Override
     protected void onPostExecute(String[] result) {
         if (result != null) {
+            ParseUser currentUser = ParseUser.getCurrentUser();
+            currentUser.add("PantryIngredientFoodCodes", new ingredientTuple(result[0], result[2]));
+            currentUser.saveInBackground();
             FetchFoodTask fetchFood = new FetchFoodTask(mContext,gridAdapter);
             fetchFood.execute(result[0],result[1],result[2]);
         }

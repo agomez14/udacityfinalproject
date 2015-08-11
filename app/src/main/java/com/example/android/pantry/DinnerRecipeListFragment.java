@@ -20,6 +20,9 @@ import java.util.List;
  */
 public class DinnerRecipeListFragment extends Fragment {
 
+    private ImageView mImageView;
+    private TextView mNameTextView;
+
     private RecyclerView mRecyclerView;
     private List<Recipe> mRecipes;
     private RecipeAdapter mAdapter;
@@ -27,7 +30,7 @@ public class DinnerRecipeListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRecipes = ((RecipeListActivity) getActivity()).getDinner();
+        mRecipes = ((RecipeListActivity) getActivity()).getRecipes();//.getDinner();
         setHasOptionsMenu(true);
     }
 
@@ -45,9 +48,6 @@ public class DinnerRecipeListFragment extends Fragment {
 
     private class RecipeHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
-
-        private ImageView mImageView;
-        private TextView mNameTextView;
 
         public RecipeHolder(View itemView) {
             super(itemView);

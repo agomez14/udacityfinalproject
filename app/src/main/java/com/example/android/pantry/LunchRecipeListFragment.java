@@ -27,7 +27,8 @@ public class LunchRecipeListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRecipes = ((RecipeListActivity) getActivity()).getLunch();
+//        mRecipes = ((RecipeListActivity) getActivity()).getLunch();
+        mRecipes = ((RecipeListActivity) getActivity()).getRecipes();
         setHasOptionsMenu(true);
     }
 

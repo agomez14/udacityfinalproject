@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,10 +15,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
+import com.parse.ParseException;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by elijahstaple on 8/4/15.
@@ -32,32 +35,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ArrayList<String> ingredients =  new ArrayList<String>();
     private Button recipeButton;
     private Button doneButton;
+    private List<ingredientTuple> userPantryItems = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Determine whether the current user is an anonymous user
-//        if (ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser())) {
-//            // If user is anonymous, send the user to LoginSignupActivity.class
-//            Intent intent = new Intent(MainActivity.this,
-//                    LoginSignupActivity.class);
-//            startActivity(intent);
-//            finish();
-//        } else {
-            // If current user is NOT anonymous user
-            // Get current user data from Parse.com
-            ParseUser currentUser = ParseUser.getCurrentUser();
-            if (currentUser != null) {
-                // Send logged in users to Welcome.class
-                Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
-                // Send user to LoginSignupActivity.class
-                Intent intent = new Intent(MainActivity.this,
-                        LoginSignupActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        setContentView(R.layout.activity_main);
+        if (ParseUser.getCurrentUser() == null) {
+            Intent intent = new Intent(MainActivity.this,
+                    LoginSignupActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        userPantryItems = ParseUser.getCurrentUser().getList("PantryIngredientFoodCodes");
         gridView = (GridView) findViewById(R.id.listFoods);
         recipeButton = (Button) findViewById(R.id.recipesButton);
         doneButton = (Button) findViewById(R.id.done);
@@ -66,8 +55,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         } else {
             pictures = getData();
         }
-        setContentView(R.layout.activity_main);
         gridAdapter = new GridViewAdapter(this, R.layout.grid_item, pictures);
+        if (userPantryItems != null) {
+            for (ingredientTuple s : userPantryItems) {
+                try {
+                    new FetchFoodTask(this, gridAdapter).execute(s.getId(),
+                            Integer.toString(2), s.getQuantity());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         gridView.setAdapter(gridAdapter);
         gridView.setOnItemClickListener(this);
 //        }
@@ -84,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             ImageItem item = (ImageItem) parent.getItemAtPosition(position);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             Bitmap bmp = item.getImage();
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            bmp.compress(Bitmap.CompressFormat.PNG, 0, stream);
             byte[] bytes = stream.toByteArray();
             intent.putExtra("image", bytes);
             intent.putExtra("title", item.getTitle());
@@ -92,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             //intent.putExtra("image", item.getImage());
 
             //Start details activity
+            Log.d("IntentStuff", "Starting detailActivity");
             startActivity(intent);
         }
     }
@@ -139,9 +138,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public ArrayList<ImageItem> getData() {
         ArrayList<ImageItem> imageArray = new ArrayList<ImageItem>();
         TypedArray imgs = getResources().obtainTypedArray(R.array.image_id);
+        String[] foodNames = new String[5];
+        foodNames[0] = "chicken";
+        foodNames[1] = "Pork";
+        foodNames[2] = "Beef";
+        foodNames[3] = "Turkey";
+        foodNames[4] = "fish";
         for (int i = 0; i < imgs.length(); i++) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
-            imageArray.add(new ImageItem(bitmap, "Image#" + i,""));
+            imageArray.add(new ImageItem(bitmap, foodNames[i],""));
         }
         return imageArray;
     }
@@ -197,7 +202,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         recipeButton.setBackgroundColor(getResources().getColor(R.color.aqua));
         doneButton.setVisibility(View.INVISIBLE);
         startActivity(intent);
-
     }
 }
 

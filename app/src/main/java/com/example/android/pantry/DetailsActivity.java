@@ -4,10 +4,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.parse.ParseUser;
 
 
 public class DetailsActivity extends ActionBarActivity {
@@ -16,6 +19,7 @@ public class DetailsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+        Log.d("IntentStuff", "Got into the other activity at least");
         String title = getIntent().getStringExtra("title");
         String foodInfo = getIntent().getStringExtra("info");
         byte[] bytes = getIntent().getByteArrayExtra("image");

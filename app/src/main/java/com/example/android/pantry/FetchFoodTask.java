@@ -146,7 +146,8 @@ public class FetchFoodTask extends AsyncTask<String ,Void, String[]> {
     protected void onPostExecute(String[] result) {
         if (result != null) {
             TypedArray imgs = mContext.getResources().obtainTypedArray(R.array.image_id);
-            Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), imgs.getResourceId(Integer.parseInt(result[1]), -1));
+            Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(),
+                    imgs.getResourceId(Integer.parseInt(result[1]), -1));
             gridAdapter.add(new ImageItem(bitmap, "Image# ", result[0]));
 
         }

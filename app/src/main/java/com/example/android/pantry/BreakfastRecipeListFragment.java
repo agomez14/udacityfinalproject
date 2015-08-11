@@ -1,5 +1,6 @@
 package com.example.android.pantry;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 
@@ -20,6 +23,9 @@ import java.util.List;
  */
 public class BreakfastRecipeListFragment extends Fragment {
 
+    private ImageView mImageView;
+    private TextView mNameTextView;
+
     private RecyclerView mRecyclerView;
     private List<Recipe> mRecipes;
     private RecipeAdapter mAdapter;
@@ -27,7 +33,8 @@ public class BreakfastRecipeListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRecipes = ((RecipeListActivity) getActivity()).getBreakfast();
+        //mRecipes = ((RecipeListActivity) getActivity()).getBreakfast();
+        mRecipes = ((RecipeListActivity) getActivity()).getRecipes();
         setHasOptionsMenu(true);
     }
 
@@ -46,9 +53,6 @@ public class BreakfastRecipeListFragment extends Fragment {
     private class RecipeHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        private ImageView mImageView;
-        private TextView mNameTextView;
-
         public RecipeHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
@@ -61,6 +65,8 @@ public class BreakfastRecipeListFragment extends Fragment {
 
         public void bindRecipe(Recipe recipe) {
             Picasso.with(getActivity()).load(recipe.getPicture()).into(mImageView);
+//            mImageView.setImageDrawable(RecipeListActivity
+//                    .loadImageFromWebOperations(recipe.getPicture()));
             mNameTextView.setText(recipe.getName());
         }
 
@@ -90,4 +96,8 @@ public class BreakfastRecipeListFragment extends Fragment {
             return mRecipes.size();
         }
     }
+
+//    private ImageView getImageView() {
+//        return mImageView;
+//    }
 }

@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -153,7 +152,7 @@ public class RecipeListActivity extends AppCompatActivity {//implements ActionBa
         switch (item.getItemId()) {
             case R.id.action_settings:
                 ParseUser.logOut();
-                Intent intent = new Intent(RecipeListActivity.this, MainActivity.class);
+                Intent intent = new Intent(RecipeListActivity.this, PantryActivity.class);
                 startActivity(intent);
                 finish();
             default:

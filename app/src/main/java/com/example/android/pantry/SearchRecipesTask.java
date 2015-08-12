@@ -62,7 +62,7 @@ public class SearchRecipesTask extends AsyncTask<ArrayList<String>, Void, ArrayL
         BufferedReader reader = null;
         String recipeSearchJsonStr = null;
         ArrayList<String> ingreds = params[0];
-        if (params.length == 0) {
+        if (params.length == 0 || ingreds == null) {
             return null;
         }
         try {
@@ -131,7 +131,7 @@ public class SearchRecipesTask extends AsyncTask<ArrayList<String>, Void, ArrayL
     @Override
     protected void onPostExecute(ArrayList<Recipe> result) {
         Log.d("recipeList", "Got to onPostExecute");
-        Log.d("recipeList", result.toString());
+//        Log.d("recipeList", result.toString());
         if (result != null) {
             mAdapter.setRecipes(result);
             mAdapter.notifyDataSetChanged();

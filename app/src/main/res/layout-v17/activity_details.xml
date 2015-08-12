@@ -25,4 +25,5 @@
         android:layout_height="201dp"
         android:id="@+id/descript"
         android:layout_gravity="center_horizontal|bottom" />
+
 </FrameLayout>

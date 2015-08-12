@@ -153,7 +153,7 @@ public class RecipeListActivity extends AppCompatActivity {//implements ActionBa
         switch (item.getItemId()) {
             case R.id.action_settings:
                 ParseUser.logOut();
-                Intent intent = new Intent(RecipeListActivity.this, MainActivity.class);
+                Intent intent = new Intent(RecipeListActivity.this, PantryActivity.class);
                 startActivity(intent);
                 finish();
             default:

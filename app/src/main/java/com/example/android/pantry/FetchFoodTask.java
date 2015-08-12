@@ -26,11 +26,20 @@ public class FetchFoodTask extends AsyncTask<String ,Void, String[]> {
     private final String LOG_TAG = FetchFoodTask.class.getSimpleName();
     private GridViewAdapter gridAdapter;
     private final Context mContext;
+    private Callbacks mCallbacks;
 
     public FetchFoodTask(Context context, GridViewAdapter gridAdapter) {
         mContext = context;
-       this.gridAdapter = gridAdapter;
+        //mCallbacks = (Callbacks) context;
+        this.gridAdapter = gridAdapter;
     }
+
+    public FetchFoodTask(Context context, GridViewAdapter gridAdapter, Callbacks callbacks) {
+        mContext = context;
+        mCallbacks = callbacks;
+        this.gridAdapter = gridAdapter;
+    }
+
     private String getFoodDataFromJson(String foodJsonStr,String amount)
                    throws JSONException {
         // These are the names of the JSON objects that need to be extracted.
@@ -64,6 +73,7 @@ public class FetchFoodTask extends AsyncTask<String ,Void, String[]> {
 
         return info;
     }
+
     @Override
     protected String[] doInBackground(String... params) {
         String[] results = new String[2];
@@ -148,8 +158,18 @@ public class FetchFoodTask extends AsyncTask<String ,Void, String[]> {
             TypedArray imgs = mContext.getResources().obtainTypedArray(R.array.image_id);
             Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(),
                     imgs.getResourceId(Integer.parseInt(result[1]), -1));
-            gridAdapter.add(new ImageItem(bitmap, "Image# ", result[0]));
-
+//            gridAdapter.add(new ImageItem(bitmap, "Image# ", result[0]));
+            if (mCallbacks != null) {
+                done(bitmap);
+            }
         }
+    }
+
+    public interface Callbacks {
+        void fetchDone(Bitmap bitmap);
+    }
+
+    private void done(Bitmap bitmap) {
+        mCallbacks.fetchDone(bitmap);
     }
 }

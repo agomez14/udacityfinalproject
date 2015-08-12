@@ -22,9 +22,11 @@
         </activity>
         <activity android:name=".LoginSignupActivity" />
         <activity android:name=".RecipeListActivity" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:value="@string/facebook_app_id" />
+
         <activity
             android:name=".addItemActivity"
             android:label="@string/title_activity_add_item" >
@@ -32,6 +34,10 @@
         <activity
             android:name=".DetailsFragment"
             android:label="@string/title_activity_details" >
+        </activity>
+        <activity
+            android:name=".DetailsRecipeActivity"
+            android:label="@string/title_activity_details_recipe" >
         </activity>
     </application>
 

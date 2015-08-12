@@ -1,9 +1,10 @@
 package com.example.android.pantry;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.android.pantry.RecipeListActivity.RecipeAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,9 +17,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-
-import com.example.android.pantry.RecipeListActivity.*;
 
 /**
  * Created by barryjohnsonsmith on 8/8/15.
@@ -45,7 +43,7 @@ public class SearchRecipesTask extends AsyncTask<ArrayList<String>, Void, ArrayL
         ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
         JSONObject recipeJson = new JSONObject(recipeSearchJsonStr);
         JSONArray searchList = recipeJson.getJSONArray(RESULTS_LIST);
-        for (int i = 0; i < searchList.length(); i++) {
+        for (int i = 0;i<searchList.length(); i++) {
             JSONObject j = searchList.getJSONObject(i);
             Log.d("RecipeTask", "Before while");
             String title = j.getString(TITLE);

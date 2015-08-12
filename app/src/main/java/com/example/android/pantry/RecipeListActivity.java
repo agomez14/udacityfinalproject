@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -97,6 +96,7 @@ public class RecipeListActivity extends AppCompatActivity {//implements ActionBa
 //        });
     }
 
+
 //    @Override
 //    protected void onStart() {
 //        super.onStart();
@@ -174,6 +174,8 @@ public class RecipeListActivity extends AppCompatActivity {//implements ActionBa
 
         private ImageView mImageView;
         private TextView mNameTextView;
+        private Recipe recipe;
+        private Context mContext;
 
         public RecipeHolder(View itemView) {
             super(itemView);
@@ -185,16 +187,29 @@ public class RecipeListActivity extends AppCompatActivity {//implements ActionBa
                     R.id.textView);
         }
 
-        public void bindRecipe(Recipe recipe, Context context) {
+        public void bindRecipe(Recipe mRecipe, Context context) {
             Log.d("RecipeHolder", "Started bind");
-            Picasso.with(context).load(recipe.getPicture()).fit().into(mImageView);
+            Picasso.with(context).load(mRecipe.getPicture()).fit().into(mImageView);
             Log.d("RecipeHolder", "Bound picture");
-            mNameTextView.setText(recipe.getName());
+            mNameTextView.setText(mRecipe.getName());
             Log.d("RecipeHolder", "Bound name");
+            recipe = mRecipe;
+            mContext = context;
+
         }
 
         @Override
         public void onClick(View v) {
+            Intent intent = new Intent(mContext, DetailsRecipeActivity.class);
+            String name = recipe.getName();
+            String ingredList = recipe.getDescription();
+            String info = recipe.getRecipe();
+            String picture = recipe.getPicture();
+            intent.putExtra("name",name);
+            intent.putExtra("ingred",ingredList);
+            intent.putExtra("recipe",info);
+            intent.putExtra("pic",picture);
+            startActivity(intent);
         }
     }
 

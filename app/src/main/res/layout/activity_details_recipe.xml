@@ -1,0 +1,30 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.barryjohnsonsmith.p.DetailsActivity">
+
+
+    <ImageView
+        android:id="@+id/recipemage"
+        android:layout_width="140dp"
+        android:layout_height="207dp"
+        android:layout_gravity="left|top"
+        android:visibility="gone"
+        android:scaleType="fitCenter" />
+    <WebView
+        android:layout_width="match_parent"
+        android:id= "@+id/recipeinfo"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_height="463dp"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cook It"
+        android:id="@+id/cookit"
+        android:layout_gravity="center_horizontal|bottom" />
+
+</FrameLayout>

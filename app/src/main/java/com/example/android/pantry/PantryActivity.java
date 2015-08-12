@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,30 +24,25 @@ import java.util.List;
 public class PantryActivity extends AppCompatActivity implements FetchFoodTask.Callbacks {//implements AdapterView.OnItemClickListener {
 
     private String selectedFood;
-    private GridView gridView;
-    private GridViewAdapter gridAdapter;
     private Intent intentAddFood;
     private int colorButton;
     private ArrayList<ImageItem> pictures;
     private ArrayList<String> ingredients = new ArrayList<String>();
-    private Button recipeButton;
-    private Button doneButton;
-    private List<ingredientTuple> userPantryItems = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_container);
         if (ParseUser.getCurrentUser() == null) {
-            Intent intent = new Intent(PantryActivity.this,
-                    WelcomeSplash.class);
+            Log.d("onCreate","Got to here!");
+            Intent intent = new Intent(PantryActivity.this, WelcomeSplash.class);
             startActivity(intent);
             finish();
+        } else {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, new PantryFragment(), "PantryFragment")
+                    .commit();
         }
-
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, new PantryFragment(), "PantryFragment")
-                .commit();
 //        userPantryItems = ParseUser.getCurrentUser().getList("PantryIngredientFoodCodes");
 //        gridView = (GridView) findViewById(R.id.listFoods);
 //        recipeButton = (Button) findViewById(R.id.recipesButton);
@@ -153,8 +149,12 @@ public class PantryActivity extends AppCompatActivity implements FetchFoodTask.C
 //        }
 //        return imageArray;
 //    }
+
     public void addFoodPic(int location, String selectedFood, String amount) {
         String position = Integer.toString(location);
+        GridViewAdapter gridAdapter = ((PantryFragment) getSupportFragmentManager()
+                .findFragmentByTag("PantryFragment"))
+                .getAdapter();
         SearchFoodTask searchTask = new SearchFoodTask(this, gridAdapter);
         if (selectedFood.equals("Chicken")) {
             searchTask.execute(selectedFood, "0500", position, amount);
@@ -175,34 +175,6 @@ public class PantryActivity extends AppCompatActivity implements FetchFoodTask.C
         savedInstanceState.putParcelableArrayList("pictures", pics);
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
-    }
-
-    public void changeColor(View v) {
-        ColorDrawable buttonDrawable = (ColorDrawable) v.getBackground();
-        if (colorButton == 0) {
-            colorButton = buttonDrawable.getColor();
-        }
-        if (colorButton < 0) {
-            v.setBackgroundColor(getResources().getColor(R.color.blue));
-            colorButton = colorButton * -1;
-        } else if (colorButton > 0) {
-            v.setBackgroundColor(getResources().getColor(R.color.aqua));
-            colorButton = colorButton * -1;
-        }
-    }
-
-    public void findRecipes(View v) {
-        Intent intent = new Intent(this, RecipeListActivity.class);
-        ArrayList<String> ingred = new ArrayList<String>();
-        for (String f : ingredients) {
-            ingred.add(f);
-        }
-        intent.putExtra("ingred", ingred);
-        colorButton = colorButton * -1;
-        ingredients.clear();
-        recipeButton.setBackgroundColor(getResources().getColor(R.color.aqua));
-        doneButton.setVisibility(View.INVISIBLE);
-        startActivity(intent);
     }
 
     @Override

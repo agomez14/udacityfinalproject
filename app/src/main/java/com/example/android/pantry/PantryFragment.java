@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -45,6 +46,19 @@ public class PantryFragment extends Fragment implements AdapterView.OnItemClickL
         gridView = (GridView) v.findViewById(R.id.listFoods);
         recipeButton = (Button) v.findViewById(R.id.recipesButton);
         doneButton = (Button) v.findViewById(R.id.done);
+        recipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeColor(v);
+            }
+        });
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findRecipes(v);
+            }
+        });
+
         if (savedInstanceState != null) {
             pictures = savedInstanceState.getParcelableArrayList("pictures");
         } else {
@@ -107,5 +121,33 @@ public class PantryFragment extends Fragment implements AdapterView.OnItemClickL
 
     public GridViewAdapter getAdapter() {
         return gridAdapter;
+    }
+
+    public void changeColor(View v) {
+        ColorDrawable buttonDrawable = (ColorDrawable) v.getBackground();
+        if (colorButton == 0) {
+            colorButton = buttonDrawable.getColor();
+        }
+        if (colorButton < 0) {
+            v.setBackgroundColor(getResources().getColor(R.color.blue));
+            colorButton = colorButton * -1;
+        } else if (colorButton > 0) {
+            v.setBackgroundColor(getResources().getColor(R.color.aqua));
+            colorButton = colorButton * -1;
+        }
+    }
+
+    public void findRecipes(View v) {
+        Intent intent = new Intent(getActivity(), RecipeListActivity.class);
+        ArrayList<String> ingred = new ArrayList<String>();
+        for (String f : ingredients) {
+            ingred.add(f);
+        }
+        intent.putExtra("ingred", ingred);
+        colorButton = colorButton * -1;
+        ingredients.clear();
+        recipeButton.setBackgroundColor(getResources().getColor(R.color.aqua));
+        doneButton.setVisibility(View.INVISIBLE);
+        startActivity(intent);
     }
 }

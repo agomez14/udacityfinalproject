@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.example.android.pantry.LoginSignupActivity;
+import com.example.android.pantry.PantryActivity;
 import com.example.android.pantry.R;
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntro2;
@@ -42,14 +43,14 @@ public class WelcomeSplash extends AppIntro {
     @Override
     public void onDonePressed() {
         Intent intent = new Intent(WelcomeSplash.this,
-                LoginSignupActivity.class);
+                PantryActivity.class);
         startActivity(intent);
         finish();
     }
     @Override
     public void onSkipPressed(){
         Intent intent = new Intent(WelcomeSplash.this,
-                LoginSignupActivity.class);
+                PantryActivity.class);
         startActivity(intent);
         finish();
     }

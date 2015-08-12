@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.android.pantry.welcome_screen.WelcomeSplash;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -53,9 +54,8 @@ public class LoginSignupActivity extends Activity {
                             public void done(ParseUser user, ParseException e) {
                                 if (user != null) {
                                     // If user exist and authenticated, send user to Welcome.class
-                                    Intent intent = new Intent(
-                                            LoginSignupActivity.this,
-                                            RecipeListActivity.class);
+                                    Intent intent = new Intent(LoginSignupActivity.this,
+                                            PantryActivity.class);
                                     startActivity(intent);
                                     Toast.makeText(getApplicationContext(),
                                             "Successfully Logged in",
@@ -104,6 +104,9 @@ public class LoginSignupActivity extends Activity {
                             }
                         }
                     });
+                    Intent intent = new Intent(LoginSignupActivity.this,
+                            WelcomeSplash.class);
+                    startActivity(intent);
                 }
 
             }

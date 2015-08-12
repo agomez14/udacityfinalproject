@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.GridView;
 
 import com.parse.ParseException;
+import com.example.android.pantry.welcome_screen.WelcomeSplash;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         if (ParseUser.getCurrentUser() == null) {
             Intent intent = new Intent(MainActivity.this,
-                    LoginSignupActivity.class);
+                    WelcomeSplash.class);
             startActivity(intent);
             finish();
         }

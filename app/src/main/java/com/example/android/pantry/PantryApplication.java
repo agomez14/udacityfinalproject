@@ -7,8 +7,6 @@ package com.example.android.pantry;
 import android.app.Application;
 
 import com.parse.Parse;
-import com.parse.ParseFacebookUtils;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 public class PantryApplication extends Application {

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by barryjohnsonsmith on 8/8/15.
  */
-public class SearchRecipesTask extends AsyncTask<ArrayList<String>, Void, ArrayList<Recipe>> {
+public class SearchRecipesTask extends AsyncTask<String, Void, ArrayList<Recipe>> {
 
     private final String LOG_TAG = SearchFoodTask.class.getSimpleName();
     private RecipeAdapter mAdapter;
@@ -56,13 +56,13 @@ public class SearchRecipesTask extends AsyncTask<ArrayList<String>, Void, ArrayL
         return recipeList;
     }
 
-    protected ArrayList<Recipe> doInBackground(ArrayList<String>... params) {
+    protected ArrayList<Recipe> doInBackground(String... params) {
         HttpURLConnection urlConnection = null;
         ArrayList<Recipe> results = new ArrayList<Recipe>();
         BufferedReader reader = null;
         String recipeSearchJsonStr = null;
-        ArrayList<String> ingreds = params[0];
-        if (params.length == 0 || ingreds == null) {
+        String ingred = params[0];
+        if (params.length == 0 || ingred == null) {
             return null;
         }
         try {
@@ -70,13 +70,13 @@ public class SearchRecipesTask extends AsyncTask<ArrayList<String>, Void, ArrayL
             final String QUERY = "q";
             final String INGREDIENTS = "i";
             final String PAGES = "p";
-            String recipes = "";
-            for (String s : ingreds) {
-                recipes = recipes + "," + s;
-            }
-            recipes = recipes.substring(1, recipes.length());
+           // String recipes = "";
+          //  for (String s : ingreds) {
+           //     recipes = recipes + "," + s;
+          //  }
+         //   recipes = recipes.substring(1, recipes.length());
             Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                    .appendQueryParameter(INGREDIENTS, recipes)
+                    .appendQueryParameter(INGREDIENTS, ingred)
                             //.appendQueryParameter(QUERY, params[3])
                     .appendQueryParameter(PAGES, "1")
                     .build();

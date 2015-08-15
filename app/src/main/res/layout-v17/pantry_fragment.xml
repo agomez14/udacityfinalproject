@@ -28,29 +28,17 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Find Recipes"
-        android:id="@+id/recipesButton"
-        android:onClick= "changeColor"
-        android:background="@color/aqua"
-        android:textColor="#FFFFFF"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Done"
+        android:text="Find Recipes"
         android:id="@+id/done"
         android:onClick="findRecipes"
-        android:visibility="invisible"
-        android:layout_toRightOf="@+id/recipesButton"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
-        android:layout_alignTop="@+id/recipesButton" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
 

@@ -1,6 +1,5 @@
 package com.example.android.pantry;
 
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,22 +7,22 @@ import android.os.Parcelable;
  * Created by barryjohnsonsmith on 8/3/15.
  */
 public class ImageItem implements Parcelable {
-    private Bitmap image;
+    private String image;
     private String title;
     private String description;
 
-    public ImageItem(Bitmap image, String title, String description) {
+    public ImageItem(String image, String title, String description) {
         super();
         this.image = image;
         this.title = title;
         this.description = description;
     }
 
-    public Bitmap getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -40,7 +39,7 @@ public class ImageItem implements Parcelable {
     }
 
     public void writeToParcel(Parcel out, int flags) {
-        out.writeParcelable(image, flags);
+        out.writeString(image);
         out.writeString(title);
         out.writeString(description);
     }
@@ -57,7 +56,7 @@ public class ImageItem implements Parcelable {
     };
 
     private ImageItem(Parcel in) {
-        image = in.readParcelable(Bitmap.class.getClassLoader());
+        image = in.readString();
         title = in.readString();
         title = in.readString();
     }

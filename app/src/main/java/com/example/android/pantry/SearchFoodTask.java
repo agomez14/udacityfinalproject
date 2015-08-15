@@ -46,7 +46,7 @@ public class SearchFoodTask extends AsyncTask<String ,Void, String[]> {
     @Override
     protected String[] doInBackground(String... params) {
         HttpURLConnection urlConnection = null;
-        String[] results = new String[3];
+        String[] results = new String[4];
         BufferedReader reader = null;
         String foodSearchJsonStr = null;
         String format = "json";
@@ -118,7 +118,6 @@ public class SearchFoodTask extends AsyncTask<String ,Void, String[]> {
         try {
             results[0] = getFoodDataFromJson(foodSearchJsonStr);
             results[1] = params[2];
-            results[2] = params[3];
             return results ;
         }
         catch (JSONException e) {
@@ -131,10 +130,10 @@ public class SearchFoodTask extends AsyncTask<String ,Void, String[]> {
     protected void onPostExecute(String[] result) {
         if (result != null) {
             ParseUser currentUser = ParseUser.getCurrentUser();
-            currentUser.add("PantryIngredientFoodCodes", new ingredientTuple(result[0], result[2]));
+            currentUser.add("PantryIngredientFoodCodes", new ingredientTuple(result[0], result[1]));
             currentUser.saveInBackground();
             FetchFoodTask fetchFood = new FetchFoodTask(mContext,gridAdapter);
-            fetchFood.execute(result[0],result[1],result[2]);
+            fetchFood.execute(result[0],result[1]);
         }
     }
 }

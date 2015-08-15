@@ -1,9 +1,6 @@
 package com.example.android.pantry;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -22,11 +19,12 @@ import java.net.URL;
 /**
  * Created by barryjohnsonsmith on 8/5/15.
  */
-public class FetchFoodTask extends AsyncTask<String ,Void, String[]> {
+public class FetchFoodTask extends AsyncTask<String ,Void, String[]> implements FoodPicTask.Callbacks {
     private final String LOG_TAG = FetchFoodTask.class.getSimpleName();
     private GridViewAdapter gridAdapter;
     private final Context mContext;
     private Callbacks mCallbacks;
+    private String pic;
 
     public FetchFoodTask(Context context, GridViewAdapter gridAdapter) {
         mContext = context;
@@ -40,7 +38,7 @@ public class FetchFoodTask extends AsyncTask<String ,Void, String[]> {
         this.gridAdapter = gridAdapter;
     }
 
-    private String getFoodDataFromJson(String foodJsonStr,String amount)
+    private String[] getFoodDataFromJson(String foodJsonStr,String amount)
                    throws JSONException {
         // These are the names of the JSON objects that need to be extracted.
         final String REPORT = "report";
@@ -64,12 +62,16 @@ public class FetchFoodTask extends AsyncTask<String ,Void, String[]> {
         double caloriesValue = calories.getDouble(VALUE);
         double protienValue = protien.getDouble(VALUE);
         double fatsValue = fats.getDouble(VALUE);
-        double carbValue = carb.getDouble(VALUE);
-        double sugarValue = sugar.getDouble(VALUE);
-        double sodiumValue = sodium.getDouble(VALUE);
+      //  double carbValue = carb.getDouble(VALUE);
+       // double sugarValue = sugar.getDouble(VALUE);
+        //double sodiumValue = sodium.getDouble(VALUE);
         double quantity = Double.parseDouble(amount);
         Food newFood = new Food(nameValue,caloriesValue,quantity,protienValue,fatsValue,foodGroup);
-        String info = newFood.toString();
+        FoodPicTask getPic = new FoodPicTask(this);
+        getPic.execute(nameValue);
+        String[] info = new String[2];
+        info[0] = newFood.toString();
+        info[1] = nameValue;
 
         return info;
     }
@@ -142,8 +144,10 @@ public class FetchFoodTask extends AsyncTask<String ,Void, String[]> {
             }
         }
         try {
-            results[0] =getFoodDataFromJson(foodJsonStr,params[2]);
-            results[1] = params[1];
+            String[] foodsInfo = new String[2];
+            foodsInfo = getFoodDataFromJson(foodJsonStr,params[1]);
+            results[0] = foodsInfo[0];
+            results[1] = foodsInfo[1];
             return results;
         }
         catch (JSONException e) {
@@ -155,21 +159,25 @@ public class FetchFoodTask extends AsyncTask<String ,Void, String[]> {
     @Override
     protected void onPostExecute(String[] result) {
         if (result != null) {
-            TypedArray imgs = mContext.getResources().obtainTypedArray(R.array.image_id);
-            Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(),
-                    imgs.getResourceId(Integer.parseInt(result[1]), -1));
-//            gridAdapter.add(new ImageItem(bitmap, "Image# ", result[0]));
+            String info = result[0];
+            String name = result[1];
+//            gridAdapter.add(new ImageItem(bitmap, "Im
+// age# ", result[0]));
             if (mCallbacks != null) {
-                done(bitmap);
+                done(pic,info,name);
             }
         }
     }
 
     public interface Callbacks {
-        void fetchDone(Bitmap bitmap);
+        void fetchDone(String pic,String info,String name);
     }
 
-    private void done(Bitmap bitmap) {
-        mCallbacks.fetchDone(bitmap);
+    private void done(String pic,String info,String name) {
+        mCallbacks.fetchDone(pic,info,name);
+    }
+    @Override
+    public void fetchDone(String picture) {
+        pic = picture;
     }
 }

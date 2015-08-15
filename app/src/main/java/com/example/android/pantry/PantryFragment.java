@@ -1,10 +1,6 @@
 package com.example.android.pantry;
 
 import android.content.Intent;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -46,23 +42,24 @@ public class PantryFragment extends Fragment implements AdapterView.OnItemClickL
         gridView = (GridView) v.findViewById(R.id.listFoods);
         recipeButton = (Button) v.findViewById(R.id.recipesButton);
         doneButton = (Button) v.findViewById(R.id.done);
-        recipeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeColor(v);
-            }
-        });
-        doneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                findRecipes(v);
-            }
-        });
+       // recipeButton.setOnClickListener(new View.OnClickListener() {
+          //  @Override
+         //   public void onClick(View v) {
+           //     changeColor(v);
+            //}
+       // });
+        //doneButton.setOnClickListener(new View.OnClickListener() {
+         //   @Override
+          //  public void onClick(View v) {
+           //     findRecipes(v);
+           // }
+       // });
 
         if (savedInstanceState != null) {
             pictures = savedInstanceState.getParcelableArrayList("pictures");
-        } else {
-            pictures = getData();
+        }
+        else {
+            pictures = new ArrayList<ImageItem>();
         }
         gridAdapter = new GridViewAdapter(getActivity(), R.layout.grid_item, pictures);
         if (userPantryItems != null) {
@@ -87,23 +84,23 @@ public class PantryFragment extends Fragment implements AdapterView.OnItemClickL
     }
 
     public void onItemClick (AdapterView< ? > parent, View v,int position, long id){
-        if(colorButton > 0 && colorButton!=0){
+      /*  if(colorButton > 0 && colorButton!=0){
             doneButton.setVisibility(View.VISIBLE);
             ImageItem item = (ImageItem) parent.getItemAtPosition(position);
             ingredients.add(item.getTitle());
         }
-        else {
-            ImageItem item = (ImageItem) parent.getItemAtPosition(position);
-            DetailsFragment fragment = DetailsFragment.newInstance(item);
-            getFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, fragment)
-                    .hide(getFragmentManager().findFragmentByTag("PantryFragment"))
-                    .addToBackStack(null)
-                    .commit();
+        else {*/
+        ImageItem item = (ImageItem) parent.getItemAtPosition(position);
+        DetailsFragment fragment = DetailsFragment.newInstance(item);
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, fragment)
+                .hide(getFragmentManager().findFragmentByTag("PantryFragment"))
+                .addToBackStack(null)
+                .commit();
         }
-    }
+   // }
 
-    public ArrayList<ImageItem> getData() {
+   /* public ArrayList<ImageItem> getData() {
         ArrayList<ImageItem> imageArray = new ArrayList<ImageItem>();
         TypedArray imgs = getResources().obtainTypedArray(R.array.image_id);
         String[] foodNames = new String[5];
@@ -117,13 +114,13 @@ public class PantryFragment extends Fragment implements AdapterView.OnItemClickL
             imageArray.add(new ImageItem(bitmap, foodNames[i],""));
         }
         return imageArray;
-    }
+    } */
 
     public GridViewAdapter getAdapter() {
         return gridAdapter;
     }
 
-    public void changeColor(View v) {
+   /* public void changeColor(View v) {
         ColorDrawable buttonDrawable = (ColorDrawable) v.getBackground();
         if (colorButton == 0) {
             colorButton = buttonDrawable.getColor();
@@ -135,9 +132,9 @@ public class PantryFragment extends Fragment implements AdapterView.OnItemClickL
             v.setBackgroundColor(getResources().getColor(R.color.aqua));
             colorButton = colorButton * -1;
         }
-    }
+    }*/
 
-    public void findRecipes(View v) {
+   /* public void findRecipes(View v) {
         Intent intent = new Intent(getActivity(), RecipeListActivity.class);
         ArrayList<String> ingred = new ArrayList<String>();
         for (String f : ingredients) {
@@ -150,4 +147,5 @@ public class PantryFragment extends Fragment implements AdapterView.OnItemClickL
         doneButton.setVisibility(View.INVISIBLE);
         startActivity(intent);
     }
+    */
 }

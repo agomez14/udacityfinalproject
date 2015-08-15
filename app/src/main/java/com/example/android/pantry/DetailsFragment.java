@@ -1,12 +1,16 @@
 package com.example.android.pantry;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 
 public class DetailsFragment extends Fragment {//ActionBarActivity {
@@ -15,6 +19,7 @@ public class DetailsFragment extends Fragment {//ActionBarActivity {
     private ImageView mImageView;
     private TextView mTitle;
     private TextView mDescription;
+    private Button mButton;
 
     public static DetailsFragment newInstance(ImageItem item) {
         DetailsFragment fragment = new DetailsFragment();
@@ -48,7 +53,7 @@ public class DetailsFragment extends Fragment {//ActionBarActivity {
         View v = inflater.inflate(R.layout.activity_details, container, false);
 
         mImageView = (ImageView) v.findViewById(R.id.image);
-        mImageView.setImageBitmap(mImageItem.getImage());
+        Picasso.with(getActivity()).load(mImageItem.getImage()).error(R.drawable.cenar).fit().into(mImageView);
 
         mTitle = (TextView) v.findViewById(R.id.title);
         mTitle.setText(mImageItem.getTitle());
@@ -56,7 +61,28 @@ public class DetailsFragment extends Fragment {//ActionBarActivity {
         mDescription = (TextView) v.findViewById(R.id.descript);
         mDescription.setText(mImageItem.getDescription());
 
+        mButton = (Button) v.findViewById(R.id.recipesButton);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findRecipes(v);
+            }
+        });
+
         return v;
+    }
+    public void findRecipes(View v) {
+        Intent intent = new Intent(getActivity(), RecipeListActivity.class);
+       // ArrayList<String> ingred = new ArrayList<String>();
+        //for (String f : ingredients) {
+          //  ingred.add(f);
+       // }
+        intent.putExtra("ingred", mImageItem.getTitle());
+      //  colorButton = colorButton * -1;
+        //ingredients.clear();
+        //recipeButton.setBackgroundColor(getResources().getColor(R.color.aqua));
+        //doneButton.setVisibility(View.INVISIBLE);
+        startActivity(intent);
     }
 
 //    @Override

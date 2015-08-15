@@ -37,13 +37,14 @@
             android:label="@string/title_activity_details" >
         </activity>
         <activity
-<<<<<<< HEAD
             android:name=".DetailsRecipeActivity"
             android:label="@string/title_activity_details_recipe" >
-=======
+
+        </activity>
+        <activity
             android:name="com.example.android.pantry.welcome_screen.WelcomeSplash"
             android:label="@string/title_activity_welcome_splash" >
->>>>>>> origin/master
+
         </activity>
     </application>
 

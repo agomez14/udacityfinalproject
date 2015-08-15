@@ -1,8 +1,6 @@
 package com.example.android.pantry;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,23 +8,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.GridView;
 
-import com.example.android.pantry.welcome_screen.WelcomeSplash;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by elijahstaple on 8/4/15.
+ * Contributers are Elijah Staples,Barry Johnson-Smith, Armando Gomez
  */
 public class PantryActivity extends AppCompatActivity implements FetchFoodTask.Callbacks {//implements AdapterView.OnItemClickListener {
 
     private String selectedFood;
     private Intent intentAddFood;
-    private int colorButton;
     private ArrayList<ImageItem> pictures;
     private ArrayList<String> ingredients = new ArrayList<String>();
 
@@ -126,9 +120,8 @@ public class PantryActivity extends AppCompatActivity implements FetchFoodTask.C
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 0 && resultCode == RESULT_OK && data != null) {
             selectedFood = data.getStringExtra("food");
-            int location = data.getIntExtra("pos", 0);
             String amount = data.getStringExtra("quantity");
-            addFoodPic(location, selectedFood, amount);
+            addFoodPic(selectedFood, amount);
 
             //addFoodPic(foodInfo,selectedFood);
         }
@@ -150,22 +143,21 @@ public class PantryActivity extends AppCompatActivity implements FetchFoodTask.C
 //        return imageArray;
 //    }
 
-    public void addFoodPic(int location, String selectedFood, String amount) {
-        String position = Integer.toString(location);
+    public void addFoodPic(String selectedFood, String amount) {
         GridViewAdapter gridAdapter = ((PantryFragment) getSupportFragmentManager()
                 .findFragmentByTag("PantryFragment"))
                 .getAdapter();
         SearchFoodTask searchTask = new SearchFoodTask(this, gridAdapter);
         if (selectedFood.equals("Chicken")) {
-            searchTask.execute(selectedFood, "0500", position, amount);
+            searchTask.execute("Raw+" + selectedFood, "0500",amount);
         } else if (selectedFood.equals("Pork")) {
-            searchTask.execute(selectedFood, "1000", position, amount);
+            searchTask.execute("Raw+"+selectedFood, "1000",amount);
         } else if (selectedFood.equals("Beef")) {
-            searchTask.execute(selectedFood, "1300", position, amount);
+            searchTask.execute("Raw+" + selectedFood, "1300",amount);
         } else if (selectedFood.equals("Turkey")) {
-            searchTask.execute(selectedFood, "0500", position, amount);
+            searchTask.execute("Raw +" + selectedFood, "0500", amount);
         } else if (selectedFood.equals("Fish")) {
-            searchTask.execute(selectedFood, "1500", position, amount);
+            searchTask.execute(selectedFood + "Raw", "1500",amount);
         }
     }
 
@@ -178,13 +170,13 @@ public class PantryActivity extends AppCompatActivity implements FetchFoodTask.C
     }
 
     @Override
-    public void fetchDone(Bitmap bitmap) {
+    public void fetchDone(String pic, String info,String name) {
         PantryFragment fragment = (PantryFragment) getSupportFragmentManager()
                 .findFragmentByTag("PantryFragment");
         if (fragment == null) {
             return;
         }
-        fragment.getAdapter().add(new ImageItem(bitmap, "Image# ", "Foods"));
+        fragment.getAdapter().add(new ImageItem(pic,name, info));
     }
 }
 

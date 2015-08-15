@@ -32,7 +32,7 @@ public class RecipeListActivity extends AppCompatActivity {//implements ActionBa
     ViewPager mViewPager;
     private String[] tabs = { "Breakfast", "Lunch", "Dinner" };
     private List<Recipe> mRecipes = new ArrayList<>();
-    private ArrayList<String> ingredients = new ArrayList<>();
+    private String ingredients = new String();
     private RecyclerView mRecyclerView;
     private RecipeAdapter mAdapter;
 
@@ -55,7 +55,7 @@ public class RecipeListActivity extends AppCompatActivity {//implements ActionBa
         mAdapter = new RecipeAdapter(this, mRecipes, getLayoutInflater());
         mRecyclerView.setAdapter(mAdapter);
 
-        ingredients = getIntent().getStringArrayListExtra("ingred");
+        ingredients = getIntent().getStringExtra("ingred");
         SearchRecipesTask recipesTask = new SearchRecipesTask(mAdapter);
         recipesTask.execute(ingredients);
 //        for (int i = 0; i < 10; i++) {
@@ -165,7 +165,7 @@ public class RecipeListActivity extends AppCompatActivity {//implements ActionBa
         return mRecipes;
     }
 
-    public List<String> getIngredients() {
+    public String getIngredients() {
         return ingredients;
     }
 

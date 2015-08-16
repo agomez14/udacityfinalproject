@@ -15,13 +15,16 @@
         <activity
             android:name=".PantryActivity"
             android:label="Cenar" >
+        </activity>
+        <activity
+            android:name=".LoginSignupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginSignupActivity" />
+
         <activity android:name=".RecipeListActivity" />
 
         <meta-data
@@ -39,7 +42,6 @@
         <activity
             android:name=".DetailsRecipeActivity"
             android:label="@string/title_activity_details_recipe" >
-
         </activity>
         <activity
             android:name="com.example.android.pantry.welcome_screen.WelcomeSplash"

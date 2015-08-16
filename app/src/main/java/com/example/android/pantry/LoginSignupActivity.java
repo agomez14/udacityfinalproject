@@ -6,6 +6,7 @@ package com.example.android.pantry;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -32,6 +33,13 @@ public class LoginSignupActivity extends Activity {
         super.onCreate(savedInstanceState);
         // Get the view from main.xml
         setContentView(R.layout.loginsignup);
+
+        if (ParseUser.getCurrentUser() != null) {
+            Log.d("onCreate", "Got to here!");
+            Intent intent = new Intent(LoginSignupActivity.this, PantryActivity.class);
+            startActivity(intent);
+            finish();
+        }
         // Locate EditTexts in main.xml
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
